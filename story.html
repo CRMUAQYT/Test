@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#07070B" />
+  <title>Естеліктер ✨</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="topbar">
+      <div class="pill">
+        <span class="audio-dot" id="audioDot" aria-hidden="true"></span>
+        <span style="margin-left:10px">private / romantic</span>
+      </div>
+    </div>
+
+    <div class="slideshow" id="slideshow" aria-hidden="true"></div>
+    <div class="shade" aria-hidden="true"></div>
+    <div class="particle-layer" id="particles" aria-hidden="true"></div>
+
+    <main class="screen single">
+      <div class="card">
+        <h2>Естеліктер ✨</h2>
+        <p style="margin-top:10px">Біздің ең тәтті сәттеріміз…</p>
+      </div>
+
+      <div class="big-heart" id="bigHeart" aria-label="Heart button">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 21s-7-4.6-9.6-9.2C.9 9 2.2 5.9 5.4 5.2c1.9-.4 3.7.3 4.8 1.7 1.1-1.4 2.9-2.1 4.8-1.7 3.2.7 4.5 3.8 3 6.6C19 16.4 12 21 12 21Z"
+                fill="rgba(255,211,182,.92)"/>
+          <path d="M12 21s-7-4.6-9.6-9.2C.9 9 2.2 5.9 5.4 5.2c1.9-.4 3.7.3 4.8 1.7 1.1-1.4 2.9-2.1 4.8-1.7 3.2.7 4.5 3.8 3 6.6C19 16.4 12 21 12 21Z"
+                stroke="rgba(232,196,106,.55)" stroke-width="1.2"/>
+        </svg>
+      </div>
+
+      <div class="bottom">
+        <a class="btn btn-ghost" href="index.html">←</a>
+        <a class="btn btn-neon" href="trap.html">КЕЛЕСІ</a>
+      </div>
+    </main>
+
+    <!-- ✅ IMPORTANT: set local sources here -->
+    <audio id="bgm" preload="auto" loop src="assets/music/lofi.mp3"></audio>
+    <audio id="sfxClick" preload="auto" src="assets/sfx/click.mp3"></audio>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>App.initStoryPage();</script>
+</body>
+</html>
