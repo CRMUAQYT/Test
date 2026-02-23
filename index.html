@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Арнайы саған 🤍</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A; /* Deep Black */
+            color: white;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Айналдыруды өшіру, себебі әр терезе толық экран */
+            height: 100vh;
+        }
+
+        /* Контейнер - слайдер ретінде */
+        .app-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        /* Әр блок толық экран */
+        .screen {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* === 1-терезе: Интрига === */
+        .hero {
+            background: radial-gradient(circle at 50% 30%, #1E1A1A, #000000);
+        }
+        .glass-circle {
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 218, 185, 0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(250, 200, 150, 0.2) inset;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+        }
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #F5D7B3; /* Peach Fuzz */
+            box-shadow: 0 15px 35px rgba(245, 215, 179, 0.5);
+            margin-bottom: 15px;
+        }
+        /* 3D гүлдер эффектісі */
+        .flower-petal {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23F5D7B3"><path d="M50,20 Q70,10 75,30 Q80,50 60,60 Q50,80 40,60 Q20,50 25,30 Q30,10 50,20 Z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+        .hero h1 {
+            font-size: 22px;
+            font-weight: 400;
+            color: #F5D7B3;
+            text-align: center;
+            margin: 25px 0 15px;
+            text-shadow: 0 0 10px rgba(245, 215, 179, 0.5);
+            letter-spacing: 2px;
+        }
+        .neon-btn {
+            background: transparent;
+            border: 2px solid #F5D7B3;
+            color: #F5D7B3;
+            font-size: 24px;
+            font-weight: 700;
+            padding: 15px 50px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            box-shadow: 0 0 20px #F5D7B3, 0 0 40px rgba(245, 215, 179, 0.3);
+            transition: 0.3s;
+            letter-spacing: 4px;
+            z-index: 10;
+            position: relative;
+        }
+        .neon-btn:active { transform: scale(0.95); }
+
+        /* === 2-терезе: Естеліктер === */
+        .memories {
+            background: #0A0A0A;
+        }
+        .ken-burns-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .ken-burns-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: kenBurns 20s infinite;
+        }
+        .ken-burns-img:nth-child(1) { animation-delay: 0s; background: #8B5A2B; } /* Түс уақытша */
+        .ken-burns-img:nth-child(2) { animation-delay: 5s; background: #A8714A; }
+        .ken-burns-img:nth-child(3) { animation-delay: 10s; background: #7A4D2A; }
+        .ken-burns-img:nth-child(4) { animation-delay: 15s; background: #B28B5C; }
+        @keyframes kenBurns {
+            0% { opacity: 0; transform: scale(1.2); }
+            5% { opacity: 1; transform: scale(1); }
+            20% { opacity: 1; transform: scale(1); }
+            25% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 0; }
+        }
+        .heart-particle-btn {
+            width: 120px;
+            height: 120px;
+            background: transparent;
+            border: none;
+            font-size: 100px;
+            color: #F5D7B3;
+            filter: drop-shadow(0 0 30px #F5D7B3);
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .heart-particle-btn:active { transform: scale(1.1); }
+        .memories p {
+            position: absolute;
+            bottom: 30px;
+            font-size: 24px;
+            color: white;
+            text-shadow: 0 0 15px black;
+            font-weight: 600;
+            z-index: 5;
+        }
+        .particle {
+            position: absolute;
+            color: #F5D7B3;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 20;
+            animation: floatUp 2s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
+        }
+
+        /* === 3-терезе: Манипуляция (The Trap) === */
+        .trap {
+            background: #0A0A0A;
+        }
+        .trap h2 {
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #F5D7B3;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .btn-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .btn-yes {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 42px;
+            font-weight: bold;
+            padding: 20px 60px;
+            border-radius: 60px;
+            box-shadow: 0 0 50px #4CAFAA, 0 0 100px #4CAF50;
+            cursor: pointer;
+            transition: 0.1s;
+            z-index: 10;
+            border: 2px solid white;
+        }
+        .btn-no {
+            position: absolute;
+            background: #5A5A5A;
+            border: none;
+            color: #CCC;
+            font-size: 24px;
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: left 0.2s ease, top 0.2s ease, right 0.2s ease, bottom 0.2s ease;
+            z-index: 5;
+            box-shadow: 0 0 10px black;
+            border: 1px solid #888;
+            will-change: left, top;
+        }
+
+        /* === 4-терезе: Детектор === */
+        .scanner {
+            background: #0A0A0A;
+        }
+        .scanner-area {
+            width: 300px;
+            height: 300px;
+            border: 4px solid #F5D7B3;
+            border-radius: 40px;
+            background: rgba(20,20,20,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 0 60px rgba(245, 215, 179, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .finger-zone {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #F5D7B3;
+            background: repeating-linear-gradient(45deg, #2A2A2A 0px, #2A2A2A 10px, #1A1A1A 10px, #1A1A1A 20px);
+            user-select: none;
+        }
+        .finger-zone i {
+            font-size: 70px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        .laser {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #F00;
+            box-shadow: 0 0 25px #FF4500;
+            top: 0;
+            left: 0;
+            animation: scan 1.5s linear infinite;
+            display: none;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+        .scan-result {
+            margin-top: 30px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #F5D7B3;
+            text-align: center;
+            min-height: 80px;
+        }
+
+        /* === 5-терезе: Карта === */
+        .map-screen {
+            background: #0A0A0A;
+            justify-content: flex-end;
+            padding-bottom: 60px;
+        }
+        .map-container {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: #1E1A1A;
+            border-radius: 40px;
+            border: 3px solid #F5D7B3;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-image: radial-gradient(circle at 30% 40%, #F5D7B3 2px, transparent 2px), 
+                              radial-gradient(circle at 70% 60%, #F5D7B3 2px, transparent 2px),
+                              linear-gradient(45deg, #333 1px, transparent 1px);
+            background-size: 30px 30px, 30px 30px, 20px 20px;
+        }
+        .heart-marker {
+            font-size: 70px;
+            color: #F5D7B3;
+            filter: drop-shadow(0 0 30px #F5D7B3);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .map-screen h2 {
+            font-size: 32px;
+            margin: 20px 0;
+            color: white;
+        }
+        .map-btn {
+            background: #F5D7B3;
+            border: none;
+            color: black;
+            font-size: 22px;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 30px #F5D7B3;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        /* Адаптация (мобильді түймелер төменгі жақта) */
+        .bottom-action {
+            position: absolute;
+            bottom: 40px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Жалпы */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- 1-терезе: Интрига -->
+        <section class="screen hero" id="screen1">
+            <div class="glass-circle">
+                <!-- Қыздың аватары (өз суретіңізбен ауыстырыңыз) -->
+                <img src="https://placekitten.com/200/200" alt="Avatar" class="avatar" id="avatarImg">
+                <h1>Бұл сайт тек бір адамға арналған...<br>Дайынсың ба?</h1>
+            </div>
+            <button class="neon-btn" id="startBtn">БАСТАУ</button>
+            <!-- 3D гүлдер (жасалады JS арқылы) -->
+        </section>
+
+        <!-- 2-терезе: Естеліктер -->
+        <section class="screen memories" id="screen2">
+            <div class="ken-burns-container" id="kenBurnsContainer">
+                <div class="ken-burns-img" style="background-image: url('https://placekitten.com/400/401');"></div>
+                <div class="ken-burns-img" style="background-image: url('https://placekitten.com/400/402');"></div>
+                <div class="ken-burns-img" style="background-image: url('https://placekitten.com/400/403');"></div>
+                <div class="ken-burns-img" style="background-image: url('https://placekitten.com/400/404');"></div>
+            </div>
+            <button class="heart-particle-btn" id="heartBtn">❤️</button>
+            <p>Біздің ең тәтті сәттеріміз...</p>
+        </section>
+
+        <!-- 3-терезе: Манипуляция -->
+        <section class="screen trap" id="screen3">
+            <h2>Сен әлемдегі ең сұлу, ең ақылды және ең пысық қызсың ба?</h2>
+            <div class="btn-wrapper" id="trapWrapper">
+                <button class="btn-yes" id="yesBtn">ИӘ</button>
+                <button class="btn-no" id="noBtn">ЖОҚ</button>
+            </div>
+        </section>
+
+        <!-- 4-терезе: Детектор -->
+        <section class="screen scanner" id="screen4">
+            <div class="scanner-area" id="scannerArea">
+                <div class="finger-zone" id="fingerZone">
+                    <i class="fas fa-fingerprint"></i>
+                    <span>Саусағыңды басып тұр</span>
+                </div>
+                <div class="laser" id="laser"></div>
+            </div>
+            <div class="scan-result" id="scanResult"></div>
+        </section>
+
+        <!-- 5-терезе: Карта -->
+        <section class="screen map-screen" id="screen5">
+            <div class="map-container">
+                <div class="heart-marker">❤️</div>
+                <div style="color: white; margin-top: 10px;">Сіздің орныңыз</div>
+            </div>
+            <h2>Сені осы жерде күтемін!</h2>
+            <button class="map-btn" id="mapBtn"><i class="fas fa-map-marked-alt"></i> Жол сілтеу</button>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Музыка (Lofi / Romantic) - бастау батырмасы іске қосады
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let audioEnabled = false;
+            
+            // Гүлдер генерациясы (1-экран)
+            function createFlowers() {
+                const hero = document.querySelector('.hero');
+                for (let i = 0; i < 30; i++) {
+                    const flower = document.createElement('div');
+                    flower.className = 'flower-petal';
+                    flower.style.left = Math.random() * 100 + '%';
+                    flower.style.top = -Math.random() * 100 + 'px';
+                    flower.style.animationDuration = (5 + Math.random() * 10) + 's';
+                    flower.style.animationDelay = Math.random() * 5 + 's';
+                    flower.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    flower.style.opacity = 0.3 + Math.random() * 0.5;
+                    hero.appendChild(flower);
+                }
+            }
+            createFlowers();
+
+            // 2. Жүрекше партиклдері
+            document.getElementById('heartBtn').addEventListener('click', function(e) {
+                for (let i = 0; i < 10; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'particle';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = (e.clientX || window.innerWidth/2) + (Math.random()*100 - 50) + 'px';
+                    heart.style.top = (e.clientY || window.innerHeight/2) + (Math.random()*100 - 50) + 'px';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 2000);
+                }
+            });
+
+            // 3. Тrap Game: "Жоқ" батырмасы қашады
+            const noBtn = document.getElementById('noBtn');
+            const trapWrapper = document.getElementById('trapWrapper');
+            
+            if (noBtn) {
+                noBtn.addEventListener('mouseenter', function(e) {
+                    // Десктоп үшін
+                    moveNoButton();
+                });
+                noBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault(); // Мобильдік үшін
+                    moveNoButton();
+                });
+
+                function moveNoButton() {
+                    const wrapperRect = trapWrapper.getBoundingClientRect();
+                    const btnRect = noBtn.getBoundingClientRect();
+                    
+                    const maxX = wrapperRect.width - btnRect.width;
+                    const maxY = wrapperRect.height - btnRect.height;
+                    
+                    const newX = Math.random() * maxX;
+                    const newY = Math.random() * maxY;
+                    
+                    noBtn.style.left = newX + 'px';
+                    noBtn.style.top = newY + 'px';
+                    noBtn.style.position = 'absolute';
+                }
+            }
+
+            // "ИӘ" батырмасы басылғанда келесі экранға өту
+            document.getElementById('yesBtn').addEventListener('click', function() {
+                document.getElementById('appContainer').scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            });
+
+            // 4. Детектор
+            const fingerZone = document.getElementById('fingerZone');
+            const laser = document.getElementById('laser');
+            const scanResult = document.getElementById('scanResult');
+            let scanInterval;
+
+            fingerZone.addEventListener('mousedown', startScan);
+            fingerZone.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                startScan(e);
+            });
+
+            function startScan(e) {
+                laser.style.display = 'block';
+                scanResult.innerHTML = ''; // очистить
+                // 1.5 сек сканер жүреді
+                setTimeout(() => {
+                    laser.style.display = 'none';
+                    scanResult.innerHTML = 'Қателік! Сұлулық деңгейі шектен асып кетті<br> <span style="font-size:40px;">∞%</span>';
+                }, 1500);
+            }
+
+            // Саусақты босатқанда (міндетті емес, бірақ тазалық үшін)
+            fingerZone.addEventListener('mouseup', function() { laser.style.display = 'none'; });
+            fingerZone.addEventListener('touchend', function() { laser.style.display = 'none'; });
+
+            // 5. Карта батырмасы (Google Maps)
+            document.getElementById('mapBtn').addEventListener('click', function() {
+                // Өз орныңыздың координатын немесе мекенжайын қойыңыз
+                window.open('https://maps.google.com/?q=Astana+Central+Park', '_blank');
+            });
+
+            // Скролл навигациясы (батырмалар арқылы)
+            document.getElementById('startBtn').addEventListener('click', function() {
+                document.getElementById('appContainer').scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+                // Музыканы іске қосу (бір рет)
+                if (!audioEnabled) {
+                    // Шартты түрде музыка іске қосылады (бірақ браузер шектеуі бар)
+                    // Сіз аудио файлды қосып, play() шақыра аласыз.
+                    audioEnabled = true;
+                }
+            });
+
+            // Суреттерді өзгертіңіз: placekitten орнына өз суреттеріңізді қойыңыз
+            // Мысалы: аватарды өзгерту
+            // document.getElementById('avatarImg').src = 'link_to_her_photo.jpg';
+
+            // Ken Burns фондарын нақты суреттермен ауыстыру үшін:
+            const kenBurnsDivs = document.querySelectorAll('.ken-burns-img');
+            const imageUrls = [
+                'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400',
+                'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400',
+                'https://images.unsplash.com/photo-1531747056595-07f6cbbe10ad?w=400',
+                'https://images.unsplash.com/photo-1529636798458-92182e662485?w=400'
+            ]; // Unsplash мысалдары
+            kenBurnsDivs.forEach((div, idx) => {
+                if (imageUrls[idx]) {
+                    div.style.backgroundImage = `url('${imageUrls[idx]}')`;
+                    div.style.backgroundSize = 'cover';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
